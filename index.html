@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#210c39">
+  <meta name="description" content="Conoce la historia de Rosa, recorre Iquitos y juega Reto Tecnológico.">
+  <title>Reto Tecnológico | La aventura de Rosa</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --ink: #1b0a2e;
+      --ink-deep: #0e0618;
+      --violet: #6d28d9;
+      --violet-light: #a78bfa;
+      --pink: #ec4899;
+      --pink-hot: #ff6fba;
+      --cyan: #22d3ee;
+      --gold: #ffd166;
+      --green: #4ade80;
+      --cream: #fff7dc;
+      --white: #ffffff;
+      --muted: #d7d2e8;
+      --line: rgba(255,255,255,.16);
+      --panel: rgba(38,12,57,.88);
+      --shadow: 0 22px 70px rgba(5,2,12,.4);
+      --max: 1180px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      min-width: 300px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(109,40,217,.3), transparent 28rem),
+        radial-gradient(circle at 88% 32%, rgba(236,72,153,.18), transparent 30rem),
+        var(--ink-deep);
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 4px solid var(--cyan); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 1000;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      color: var(--ink);
+      background: var(--gold);
+      font-weight: 900;
+      transform: translateY(-180%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: fixed;
+      z-index: 100;
+      inset: 0 0 auto;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: rgba(14,6,24,.76);
+      backdrop-filter: blur(15px);
+    }
+
+    .nav {
+      width: min(var(--max), calc(100% - 32px));
+      min-height: 74px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 1000;
+      letter-spacing: -.03em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--cream);
+      color: var(--ink);
+      background: var(--gold);
+      box-shadow: 4px 4px 0 var(--pink);
+      font: 1000 1rem/1 "Courier New", monospace;
+      transform: rotate(-3deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: clamp(12px, 2.4vw, 30px);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #f4effc;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 800;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      isolation: isolate;
+      overflow: hidden;
+      background-image:
+        linear-gradient(90deg, rgba(14,6,24,.96) 0%, rgba(26,8,44,.86) 42%, rgba(14,6,24,.25) 73%, rgba(14,6,24,.42) 100%),
+        linear-gradient(180deg, rgba(14,6,24,.18), var(--ink-deep) 100%),
+        url("assets/puente-nanay.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: auto 0 0;
+      height: 140px;
+      background: linear-gradient(transparent, var(--ink-deep));
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 130px 0 82px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      align-items: center;
+      gap: clamp(24px, 5vw, 72px);
+    }
+
+    .hero-copy { position: relative; z-index: 2; min-width: 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px;
+      color: var(--gold);
+      font: 900 clamp(.78rem, 1.6vw, .95rem)/1.2 "Courier New", monospace;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 4px;
+      background: var(--pink);
+      box-shadow: 8px 0 0 var(--cyan);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.04; }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 24px;
+      font-size: clamp(3.5rem, 8.7vw, 7.8rem);
+      letter-spacing: -.07em;
+      text-wrap: balance;
+      text-shadow: 6px 7px 0 rgba(14,6,24,.6);
+    }
+    h1 span {
+      display: block;
+      color: var(--gold);
+      text-shadow: 4px 5px 0 var(--pink), 8px 9px 0 rgba(14,6,24,.75);
+    }
+
+    .hero-lead {
+      max-width: 650px;
+      margin-bottom: 30px;
+      color: #f4effc;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      font-weight: 600;
+    }
+
+    .play-button {
+      min-width: 220px;
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 15px 24px;
+      border: 3px solid var(--cream);
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--pink-hot), var(--pink));
+      box-shadow: 0 7px 0 #9d174d, 0 12px 25px rgba(0,0,0,.34);
+      text-decoration: none;
+      font: 1000 .96rem/1 "Courier New", monospace;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    }
+    .play-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+    .play-button:active { transform: translateY(5px); box-shadow: 0 2px 0 #9d174d; }
+    .play-button svg { width: 21px; height: 21px; fill: currentColor; }
+
+    .hero-note {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-width: 0;
+      min-height: 600px;
+      display: grid;
+      place-items: end center;
+    }
+
+    .hero-character {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 430px);
+      max-height: 72svh;
+      object-fit: contain;
+      filter: drop-shadow(16px 22px 0 rgba(14,6,24,.35));
+      animation: hero-float 3.2s ease-in-out infinite;
+    }
+
+    .route-badge {
+      position: absolute;
+      z-index: 3;
+      right: 0;
+      bottom: 10%;
+      width: min(250px, 58%);
+      padding: 16px 18px;
+      border: 3px solid var(--cream);
+      background: rgba(38,12,57,.92);
+      box-shadow: 8px 8px 0 var(--pink);
+      transform: rotate(2deg);
+    }
+    .route-badge strong { display: block; color: var(--gold); font-size: 1.1rem; }
+    .route-badge span { color: #e8e0f4; font-size: .9rem; font-weight: 700; }
+
+    .scroll-cue {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      bottom: 24px;
+      width: 34px;
+      height: 48px;
+      border: 2px solid rgba(255,255,255,.7);
+      border-radius: 20px;
+      transform: translateX(-50%);
+    }
+    .scroll-cue::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      width: 5px;
+      height: 9px;
+      border-radius: 4px;
+      background: var(--gold);
+      transform: translateX(-50%);
+      animation: scroll-dot 1.8s ease-in-out infinite;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(78px, 10vw, 132px) 0;
+    }
+    .section.alt { background: rgba(109,40,217,.09); }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: clamp(38px, 6vw, 70px);
+    }
+    .section-head.center { margin-inline: auto; text-align: center; }
+    .section-head.center .eyebrow { justify-content: center; }
+    .section-head h2 {
+      margin-bottom: 18px;
+      font-size: clamp(2.3rem, 5.2vw, 4.9rem);
+      letter-spacing: -.055em;
+      text-wrap: balance;
+    }
+    .section-head p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+      align-items: center;
+      gap: clamp(32px, 7vw, 90px);
+    }
+
+    .story-art {
+      position: relative;
+      min-height: 560px;
+      overflow: hidden;
+      border: 4px solid var(--cream);
+      box-shadow: 16px 16px 0 var(--violet), var(--shadow);
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+    }
+    .story-art img { width: 100%; height: 100%; min-height: 560px; object-fit: cover; }
+    .story-art::after {
+      content: "META: TECNOLÓGICO";
+      position: absolute;
+      inset: auto 18px 18px;
+      padding: 13px 16px;
+      color: var(--ink);
+      background: var(--gold);
+      font: 1000 .9rem/1.2 "Courier New", monospace;
+      text-align: center;
+      letter-spacing: .05em;
+    }
+
+    .story-copy h2 {
+      margin-bottom: 22px;
+      font-size: clamp(2.3rem, 5vw, 4.6rem);
+      letter-spacing: -.055em;
+    }
+    .story-copy p { color: var(--muted); font-size: 1.08rem; }
+
+    .mission-callout {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-left: 6px solid var(--cyan);
+      background: linear-gradient(90deg, rgba(34,211,238,.14), rgba(34,211,238,.02));
+    }
+    .mission-callout strong { display: block; margin-bottom: 4px; color: var(--gold); }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .route-card {
+      position: relative;
+      min-height: 430px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,.82);
+      background: var(--ink);
+      box-shadow: 9px 9px 0 rgba(109,40,217,.65);
+      transition: transform .24s ease, border-color .24s ease;
+    }
+    .route-card:hover { transform: translateY(-8px); border-color: var(--gold); }
+    .route-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .route-card:hover img { transform: scale(1.05); }
+    .route-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 28%, rgba(14,6,24,.25) 48%, rgba(14,6,24,.97) 90%);
+    }
+    .route-info { position: relative; z-index: 2; padding: 24px 20px; }
+    .route-info span {
+      color: var(--cyan);
+      font: 900 .75rem/1.2 "Courier New", monospace;
+      letter-spacing: .1em;
+    }
+    .route-info h3 { margin: 7px 0 8px; font-size: 1.42rem; }
+    .route-info p { margin: 0; color: #ddd5e9; font-size: .92rem; line-height: 1.5; }
+
+    .profile {
+      display: grid;
+      grid-template-columns: minmax(280px,.8fr) minmax(0,1.2fr);
+      align-items: center;
+      gap: clamp(28px, 8vw, 100px);
+    }
+
+    .profile-visual {
+      position: relative;
+      min-height: 650px;
+      display: grid;
+      place-items: center;
+    }
+    .profile-visual::before {
+      content: "";
+      position: absolute;
+      width: 82%;
+      aspect-ratio: 1;
+      border: 4px solid var(--cream);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(145deg, var(--violet), #3b1761);
+      background-size: 22px 22px, 22px 22px, auto;
+      box-shadow: 16px 16px 0 var(--pink);
+      transform: rotate(-3deg);
+    }
+    .profile-visual img {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 430px);
+      max-height: 650px;
+      object-fit: contain;
+      filter: drop-shadow(12px 16px 0 rgba(14,6,24,.28));
+    }
+
+    .profile-copy h2 {
+      margin-bottom: 16px;
+      font-size: clamp(2.5rem, 5vw, 4.9rem);
+      letter-spacing: -.06em;
+    }
+    .profile-role { margin-bottom: 24px; color: var(--gold); font-weight: 900; font-size: 1.18rem; }
+    .profile-copy > p:not(.eyebrow):not(.profile-role) { color: var(--muted); font-size: 1.07rem; }
+
+    .profile-facts {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 13px;
+      margin: 30px 0 0;
+    }
+    .fact {
+      padding: 17px;
+      border: 2px solid var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .fact strong { display: block; margin-bottom: 3px; color: var(--cyan); font-size: .83rem; letter-spacing: .06em; text-transform: uppercase; }
+    .fact span { color: var(--white); font-weight: 800; }
+
+    .moves-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+    }
+    .move-card {
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 2px solid var(--line);
+      background: linear-gradient(180deg, rgba(109,40,217,.22), rgba(255,255,255,.035));
+      transition: transform .22s ease, border-color .22s ease;
+    }
+    .move-card:hover { transform: translateY(-7px); border-color: var(--violet-light); }
+    .move-stage {
+      position: relative;
+      min-height: 300px;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle, rgba(236,72,153,.2), transparent 60%),
+        linear-gradient(transparent 74%, rgba(34,211,238,.18) 74%, rgba(34,211,238,.18) 76%, transparent 76%);
+    }
+    .move-stage img { width: 78%; height: 285px; object-fit: contain; filter: drop-shadow(7px 9px 0 rgba(0,0,0,.25)); }
+    .move-copy { padding: 20px; }
+    .move-copy h3 { margin-bottom: 7px; color: var(--gold); font-size: 1.25rem; }
+    .move-copy p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .run-stage img { position: absolute; }
+    .run-stage .run-frame-b { animation: run-swap .42s steps(1,end) infinite; }
+
+    .controls-layout {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(320px,.8fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+    .control-panel {
+      padding: clamp(24px, 4vw, 42px);
+      border: 3px solid var(--cream);
+      background: var(--panel);
+      box-shadow: 12px 12px 0 var(--violet);
+    }
+    .control-panel h3 { margin-bottom: 25px; font-size: clamp(1.6rem,3vw,2.5rem); }
+    .control-list { display: grid; gap: 15px; }
+    .control-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--line);
+    }
+    .control-row:last-child { padding-bottom: 0; border: 0; }
+    .keys { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    kbd {
+      min-width: 38px;
+      min-height: 38px;
+      display: inline-grid;
+      place-items: center;
+      padding: 6px 10px;
+      border: 2px solid var(--cream);
+      color: var(--ink);
+      background: var(--gold);
+      box-shadow: 0 4px 0 #a66400;
+      font: 900 .8rem/1 "Courier New", monospace;
+    }
+    .control-row p { margin: 0; color: var(--muted); }
+
+    .goal-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      border: 3px solid var(--cream);
+      background: linear-gradient(180deg, rgba(14,6,24,.1), rgba(14,6,24,.96)), url("assets/plaza-armas.jpg") center/cover;
+      box-shadow: 12px 12px 0 var(--pink);
+    }
+    .goal-panel::before {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 14px;
+      top: 28px;
+      right: -20px;
+      background: repeating-linear-gradient(90deg,#fff 0 18px,#ec4899 18px 36px);
+      transform: rotate(5deg);
+    }
+    .goal-panel > * { position: relative; z-index: 2; }
+    .goal-panel strong { color: var(--gold); font-size: 1.4rem; }
+    .goal-panel p { margin: 8px 0 0; color: #f0e9f8; }
+
+    .obstacle-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.15fr) minmax(300px,.85fr);
+      align-items: center;
+      gap: clamp(28px, 6vw, 72px);
+    }
+    .mototaxi-card {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 3px solid var(--cream);
+      background:
+        radial-gradient(circle at 50% 55%, rgba(34,211,238,.2), transparent 48%),
+        linear-gradient(145deg, rgba(109,40,217,.42), rgba(38,12,57,.75));
+      box-shadow: 14px 14px 0 #164e63;
+    }
+    .mototaxi-card img { width: 100%; object-fit: contain; filter: drop-shadow(12px 16px 0 rgba(0,0,0,.25)); }
+    .obstacle-copy h2 { margin-bottom: 20px; font-size: clamp(2.4rem,5vw,4.5rem); letter-spacing: -.055em; }
+    .obstacle-copy p { color: var(--muted); font-size: 1.06rem; }
+    .tip-list { display: grid; gap: 12px; margin-top: 25px; }
+    .tip {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .tip-icon {
+      width: 42px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: var(--cyan);
+      font: 1000 .9rem/1 "Courier New", monospace;
+    }
+    .tip strong { display: block; color: var(--white); }
+    .tip span { color: var(--muted); font-size: .9rem; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      grid-template-rows: repeat(2, 270px);
+      gap: 14px;
+    }
+    .gallery figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.5);
+      background: var(--ink);
+    }
+    .gallery figure:first-child { grid-row: 1 / 3; }
+    .gallery figure:last-child { grid-column: 2 / 4; }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
+    .gallery figure:hover img { transform: scale(1.045); }
+    .gallery figcaption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 26px 18px 16px;
+      color: var(--white);
+      background: linear-gradient(transparent, rgba(14,6,24,.92));
+      font-weight: 900;
+    }
+
+    .final-cta {
+      position: relative;
+      min-height: 720px;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+      overflow: hidden;
+      text-align: center;
+      background: url("assets/tecnologico.jpg") center/cover;
+    }
+    .final-cta::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,6,24,.35), rgba(14,6,24,.9));
+      backdrop-filter: blur(1px);
+    }
+    .final-panel {
+      width: min(800px, calc(100% - 32px));
+      padding: clamp(30px, 6vw, 64px);
+      border: 4px solid var(--cream);
+      outline: 5px solid var(--pink);
+      background: rgba(38,12,57,.9);
+      box-shadow: 16px 16px 0 rgba(14,6,24,.6);
+    }
+    .final-panel h2 { margin-bottom: 18px; font-size: clamp(2.5rem,6vw,5.6rem); letter-spacing: -.06em; }
+    .final-panel h2 span { color: var(--green); text-shadow: 3px 3px 0 #166534; }
+    .final-panel p { max-width: 600px; margin: 0 auto 28px; color: var(--muted); font-size: 1.1rem; }
+
+    .site-footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      background: #09030f;
+    }
+    .footer-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-inner p { margin: 0; color: #bcb3ca; font-size: .92rem; }
+    .footer-inner a { color: var(--gold); font-weight: 900; text-decoration: none; }
+
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes hero-float {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+    @keyframes scroll-dot {
+      0% { opacity: 0; transform: translate(-50%,0); }
+      35% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%,18px); }
+    }
+    @keyframes run-swap { 0%,49% { opacity: 0; } 50%,100% { opacity: 1; } }
+
+    @media (max-width: 980px) {
+      .nav-links li:nth-child(2), .nav-links li:nth-child(4) { display: none; }
+      .hero-inner { grid-template-columns: 1fr .7fr; }
+      .hero-visual { min-height: 500px; }
+      .route-grid, .moves-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .story-grid, .profile, .obstacle-grid { gap: 46px; }
+      .controls-layout { grid-template-columns: 1fr; }
+      .goal-panel { min-height: 380px; }
+      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3,240px); }
+      .gallery figure:first-child { grid-row: 1 / 3; }
+      .gallery figure:last-child { grid-column: 1 / 3; }
+    }
+
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 68px; }
+      .nav { min-height: 66px; }
+      .brand-text { font-size: .9rem; }
+      .nav-links { gap: 15px; }
+      .nav-links li:nth-child(3) { display: none; }
+      .nav-links a { font-size: .76rem; }
+
+      .hero { min-height: auto; background-position: 63% center; }
+      .hero-inner { grid-template-columns: 1fr; padding: 118px 0 88px; }
+      .hero-copy { text-align: center; }
+      .hero-copy .eyebrow { justify-content: center; }
+      .hero-lead { margin-inline: auto; }
+      .hero-visual { min-height: 470px; }
+      .hero-character { max-height: 500px; }
+      .route-badge { right: 4%; }
+      .scroll-cue { display: none; }
+
+      .story-grid, .profile, .obstacle-grid { grid-template-columns: 1fr; }
+      .story-art { min-height: 420px; order: 2; }
+      .story-art img { min-height: 420px; }
+      .profile-visual { min-height: 520px; }
+      .profile-visual img { max-height: 520px; }
+      .obstacle-copy { order: -1; }
+      .mototaxi-card { min-height: 330px; }
+      .control-row { grid-template-columns: 1fr; gap: 10px; }
+      .final-cta { min-height: 640px; }
+    }
+
+    @media (max-width: 560px) {
+      .brand-text { display: none; }
+      .nav-links { min-width: 0; flex: 1; justify-content: flex-end; gap: 8px; }
+      .nav-links li { display: none !important; }
+      .nav-links li:last-child { display: list-item !important; }
+      .nav-links a { font-size: .72rem; }
+      .hero-inner, .container, .nav, .footer-inner { width: min(100% - 24px, var(--max)); }
+      .hero-copy { width: 100%; max-width: 100%; overflow: hidden; }
+      h1 { width: 100%; max-width: 100%; font-size: clamp(2.7rem, 11.8vw, 3.7rem); letter-spacing: -.075em; }
+      .hero-copy .eyebrow { display: block; width: 100%; max-width: 100%; font-size: .68rem; letter-spacing: .07em; text-align: center; }
+      .hero-copy .eyebrow::before { display: none; }
+      .hero-lead { width: 100%; max-width: 100%; padding-inline: 4px; font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
+      .hero-visual { min-height: 390px; }
+      .hero-character { width: 85%; max-height: 410px; }
+      .route-badge { bottom: 4%; width: 62%; padding: 12px 14px; }
+      .play-button { width: 100%; min-width: 0; }
+      .route-grid, .moves-grid, .profile-facts { grid-template-columns: 1fr; }
+      .route-card { min-height: 390px; }
+      .move-card { min-height: 400px; }
+      .profile-visual { min-height: 440px; }
+      .profile-visual img { max-height: 440px; }
+      .story-art, .story-art img { min-height: 360px; }
+      .gallery { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(4,230px); }
+      .gallery figure:first-child, .gallery figure:last-child { grid-row: auto; grid-column: auto; }
+      .final-panel { outline-width: 3px; border-width: 3px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio de Reto Tecnológico">
+        <span class="brand-mark" aria-hidden="true">RT</span>
+        <span class="brand-text">RETO TECNOLÓGICO</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#historia">Historia</a></li>
+        <li><a href="#ruta">La ruta</a></li>
+        <li><a href="#rosa">Rosa</a></li>
+        <li><a href="#movimientos">Movimientos</a></li>
+        <li><a href="#como-jugar">Cómo jugar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio" aria-labelledby="titulo-principal">
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Una aventura educativa en Iquitos</p>
+          <h1 id="titulo-principal">Reto <span>Tecnológico</span></h1>
+          <p class="hero-lead">Acompaña a Rosa por cuatro rutas emblemáticas, reúne las monedas necesarias, esquiva el tránsito y llega al Tecnológico para completar el gran desafío.</p>
+          <a class="play-button" href="juego.html" aria-label="Abrir y jugar Reto Tecnológico ahora">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5L8 5.5Z"/></svg>
+            Jugar ahora
+          </a>
+          <p class="hero-note">Juego adaptable para computadora, celular y tablet.</p>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <img class="hero-character" src="assets/rosa-jump.png" alt="" width="1024" height="1536">
+          <div class="route-badge">
+            <strong>4 misiones</strong>
+            <span>Un recorrido hasta la meta final.</span>
+          </div>
+        </div>
+      </div>
+      <span class="scroll-cue" aria-hidden="true"></span>
+    </section>
+
+    <section class="section" id="historia">
+      <div class="container story-grid">
+        <div class="story-art reveal">
+          <img src="assets/tecnologico.jpg" alt="El Tecnológico, meta final del recorrido de Rosa" loading="lazy" decoding="async" width="1536" height="1024">
+        </div>
+        <div class="story-copy reveal">
+          <p class="eyebrow">La historia</p>
+          <h2>Una ruta con una gran meta</h2>
+          <p>Rosa emprende un recorrido por Iquitos con un objetivo claro: atravesar la ciudad y llegar al Tecnológico. Para lograrlo deberá avanzar por el Puente Nanay, la Plaza de Armas y la Plaza 28.</p>
+          <p>En cada misión aparecen monedas, huecos, barreras y mototaxis. Solo una jugadora atenta podrá reunir lo necesario, cuidar sus vidas y abrir la meta de cada nivel.</p>
+          <div class="mission-callout">
+            <strong>La misión de Rosa</strong>
+            Reunir monedas, superar los obstáculos y demostrar que está preparada para completar el Reto Tecnológico.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="ruta">
+      <div class="container">
+        <header class="section-head center reveal">
+          <p class="eyebrow">Cuatro misiones por Iquitos</p>
+          <h2>El camino al Tecnológico</h2>
+          <p>Cada escenario aumenta el ritmo y combina nuevos peligros. La meta se abre cuando Rosa reúne las monedas indicadas.</p>
+        </header>
+
+        <div class="route-grid">
+          <article class="route-card reveal">
+            <img src="assets/puente-nanay.jpg" alt="Escenario del Puente Nanay" loading="lazy" decoding="async" width="1536" height="1024">
+            <div class="route-info"><span>NIVEL 1</span><h3>Puente Nanay</h3><p>El inicio del recorrido y el momento perfecto para dominar la carrera y el salto.</p></div>
+          </article>
+          <article class="route-card reveal">
+            <img src="assets/plaza-armas.jpg" alt="Escenario de la Plaza de Armas de Iquitos" loading="lazy" decoding="async" width="1536" height="1024">
+            <div class="route-info"><span>NIVEL 2</span><h3>Plaza de Armas</h3><p>La ciudad se vuelve más activa y aparecen huecos entre las monedas.</p></div>
+          </article>
+          <article class="route-card reveal">
+            <img src="assets/plaza-28.jpg" alt="Escenario de la Plaza 28 de Julio" loading="lazy" decoding="async" width="1536" height="1024">
+            <div class="route-info"><span>NIVEL 3</span><h3>Plaza 28</h3><p>Más velocidad, menos tiempo para reaccionar y una misión más exigente.</p></div>
+          </article>
+          <article class="route-card reveal">
+            <img src="assets/tecnologico.jpg" alt="Escenario final rumbo al Tecnológico" loading="lazy" decoding="async" width="1536" height="1024">
+            <div class="route-info"><span>NIVEL 4</span><h3>El Tecnológico</h3><p>La ruta final combina los desafíos antes de mostrar el esperado aprobado.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rosa">
+      <div class="container profile">
+        <div class="profile-visual reveal">
+          <img src="assets/rosa-idle.png" alt="Rosa, protagonista de Reto Tecnológico" loading="lazy" decoding="async" width="1024" height="1536">
+        </div>
+        <div class="profile-copy reveal">
+          <p class="eyebrow">Perfil de personaje</p>
+          <h2>Conoce a Rosa</h2>
+          <p class="profile-role">Estudiante y protagonista de la aventura</p>
+          <p>Rosa está lista para recorrer Iquitos con energía. Su chaqueta rosada, mochila morada y zapatillas turquesa la acompañan durante toda la ruta.</p>
+          <p>Puede correr con agilidad, saltar obstáculos altos y agacharse cuando la situación lo necesita. Cada movimiento responde con fluidez para que el recorrido se sienta ligero y dinámico.</p>
+          <div class="profile-facts">
+            <div class="fact"><strong>Objetivo</strong><span>Llegar al Tecnológico</span></div>
+            <div class="fact"><strong>Habilidad</strong><span>Carrera ágil</span></div>
+            <div class="fact"><strong>Ventaja</strong><span>Salto alto</span></div>
+            <div class="fact"><strong>Recompensa</strong><span>¡APROBADO!</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="movimientos">
+      <div class="container">
+        <header class="section-head center reveal">
+          <p class="eyebrow">Movimientos del personaje</p>
+          <h2>Rosa siempre está en acción</h2>
+          <p>Sus poses se combinan con balanceo, inclinación y aterrizaje para crear una animación flexible durante el juego.</p>
+        </header>
+
+        <div class="moves-grid">
+          <article class="move-card reveal">
+            <div class="move-stage"><img src="assets/rosa-idle.png" alt="Rosa en posición de espera" loading="lazy" decoding="async" width="1024" height="1536"></div>
+            <div class="move-copy"><h3>Lista para empezar</h3><p>La posición de espera presenta al personaje antes de entrar en movimiento.</p></div>
+          </article>
+          <article class="move-card reveal">
+            <div class="move-stage run-stage">
+              <img src="assets/rosa-run.png" alt="Primera zancada de Rosa corriendo" loading="lazy" decoding="async" width="1024" height="1536">
+              <img class="run-frame-b" src="assets/rosa-run-2.png" alt="Segunda zancada de Rosa corriendo" loading="lazy" decoding="async" width="1024" height="1536">
+            </div>
+            <div class="move-copy"><h3>Carrera flexible</h3><p>Dos zancadas alternadas hacen que brazos y piernas se muevan de forma natural.</p></div>
+          </article>
+          <article class="move-card reveal">
+            <div class="move-stage"><img src="assets/rosa-jump.png" alt="Rosa realizando un salto alto" loading="lazy" decoding="async" width="1024" height="1536"></div>
+            <div class="move-copy"><h3>Salto alto</h3><p>Permite superar mototaxis, huecos y barreras mientras se mantiene el impulso.</p></div>
+          </article>
+          <article class="move-card reveal">
+            <div class="move-stage"><img src="assets/rosa-duck.png" alt="Rosa agachándose" loading="lazy" decoding="async" width="1024" height="1536"></div>
+            <div class="move-copy"><h3>Agacharse</h3><p>Una postura compacta que completa el conjunto de acciones de Rosa.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-jugar">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Cómo se juega</p>
+          <h2>Controles simples, reto creciente</h2>
+          <p>Muévete, acelera y salta sin soltar el ritmo. En celulares aparecen controles táctiles dentro del juego.</p>
+        </header>
+
+        <div class="controls-layout">
+          <div class="control-panel reveal">
+            <h3>Controles de computadora</h3>
+            <div class="control-list">
+              <div class="control-row"><div class="keys"><kbd>A</kbd><kbd>←</kbd></div><p>Mover a Rosa hacia la izquierda.</p></div>
+              <div class="control-row"><div class="keys"><kbd>D</kbd><kbd>→</kbd></div><p>Avanzar hacia la derecha por la ruta.</p></div>
+              <div class="control-row"><div class="keys"><kbd>W</kbd><kbd>↑</kbd><kbd>ESPACIO</kbd></div><p>Saltar y mantener la tecla para ganar altura.</p></div>
+              <div class="control-row"><div class="keys"><kbd>SHIFT</kbd></div><p>Correr más rápido cuando necesites impulso.</p></div>
+              <div class="control-row"><div class="keys"><kbd>P</kbd><kbd>ESC</kbd></div><p>Pausar el juego en cualquier momento.</p></div>
+            </div>
+          </div>
+          <aside class="goal-panel reveal">
+            <strong>Tu objetivo en cada nivel</strong>
+            <p>Recoge la cantidad de monedas indicada en pantalla y llega a la bandera de meta conservando al menos una vida.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="obstaculos">
+      <div class="container obstacle-grid">
+        <div class="mototaxi-card reveal">
+          <img src="assets/mototaxi-azul-izquierda.png" alt="Mototaxi azul conducido por un hombre con camiseta y lentes" loading="lazy" decoding="async" width="1536" height="1024">
+        </div>
+        <div class="obstacle-copy reveal">
+          <p class="eyebrow">Atención al camino</p>
+          <h2>Mototaxis en movimiento</h2>
+          <p>Los mototaxis llegan desde la derecha y avanzan hacia Rosa. Cada uno lleva un conductor y un pequeño movimiento de suspensión para integrarse con el ritmo de la ruta.</p>
+          <div class="tip-list">
+            <div class="tip"><span class="tip-icon">01</span><div><strong>Observa</strong><span>Detecta el obstáculo antes de que se acerque.</span></div></div>
+            <div class="tip"><span class="tip-icon">02</span><div><strong>Toma impulso</strong><span>Corre para controlar mejor la distancia.</span></div></div>
+            <div class="tip"><span class="tip-icon">03</span><div><strong>Salta</strong><span>Mantén la tecla para alcanzar mayor altura.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <header class="section-head center reveal">
+          <p class="eyebrow">Galería de escenarios</p>
+          <h2>Iquitos es parte de la aventura</h2>
+          <p>Los fondos acompañan el avance de Rosa y convierten cada misión en una etapa diferente del recorrido.</p>
+        </header>
+        <div class="gallery reveal">
+          <figure><img src="assets/puente-nanay.jpg" alt="Vista del Puente Nanay en el juego" loading="lazy" decoding="async" width="1536" height="1024"><figcaption>Puente Nanay</figcaption></figure>
+          <figure><img src="assets/plaza-armas.jpg" alt="Vista de la Plaza de Armas en el juego" loading="lazy" decoding="async" width="1536" height="1024"><figcaption>Plaza de Armas</figcaption></figure>
+          <figure><img src="assets/plaza-28.jpg" alt="Vista de la Plaza 28 en el juego" loading="lazy" decoding="async" width="1536" height="1024"><figcaption>Plaza 28</figcaption></figure>
+          <figure><img src="assets/tecnologico.jpg" alt="Vista del Tecnológico en el juego" loading="lazy" decoding="async" width="1536" height="1024"><figcaption>Meta final: el Tecnológico</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="titulo-final">
+      <div class="final-panel reveal">
+        <p class="eyebrow">La meta ya está preparada</p>
+        <h2 id="titulo-final">¿Lista para obtener el <span>APROBADO</span>?</h2>
+        <p>Entra al juego, acompaña a Rosa y completa las cuatro misiones de Reto Tecnológico.</p>
+        <a class="play-button" href="juego.html" aria-label="Abrir Reto Tecnológico y comenzar a jugar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5L8 5.5Z"/></svg>
+          Jugar ahora
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><strong>Reto Tecnológico</strong> · Una aventura por Iquitos.</p>
+      <a href="#inicio">Volver al inicio</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        items.forEach(item => item.classList.add('visible'));
+        return;
+      }
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -40px' });
+      items.forEach(item => observer.observe(item));
+    })();
+  </script>
+</body>
+</html>
